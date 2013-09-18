@@ -15,7 +15,7 @@ var parsers = {
 
 for(var key in parsers) {
 	var markdown = parsers[key];
-
+	var base = window.location.href.split(window.location.pathname)[0];
 	describe("With " + key + " parser", function() {
 		it("should be able to convert '<h1>H1</h1>' to '# H1\\n\\n'", function() {
 			var md = markdown("<h1>H1</h1>");
@@ -174,6 +174,12 @@ for(var key in parsers) {
 		it("should be able to convert images inline style", function() {
 			var md = markdown("<img alt=\"Example Image\" title=\"Free example image\" src=\"/img/62838.jpg\"/>", {"inlineStyle": true});
 			var expected = "![Example Image](/img/62838.jpg \"Free example image\")\n\n";
+			expect(md).toEqual(expected);
+		});
+
+		it("should be able to convert images url if needed", function() {
+			var md = markdown("<img alt=\"Example Image\" title=\"Free example image\" src=\"/img/62838.jpg\"/>", {"inlineStyle": true, "normalizeUrl": true});
+			var expected = "![Example Image]("+base+"/img/62838.jpg \"Free example image\")\n\n";
 			expect(md).toEqual(expected);
 		});
 
