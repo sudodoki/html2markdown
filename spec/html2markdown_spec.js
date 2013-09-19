@@ -15,7 +15,16 @@ var parsers = {
 
 for(var key in parsers) {
 	var markdown = parsers[key];
-	var base = window.location.href.split(window.location.pathname)[0];
+
+	if (typeof window == 'undefined' || typeof window.location == 'undefined') {
+		var window = {
+			location: {
+				href: 'http://localhost:5984/pathname',
+				pathname: '/pathname'
+			}
+		}
+	}
+	var base = window.location.href.split(window.location.pathname)[0] || "http://localhost:5984";
 	describe("With " + key + " parser", function() {
 		it("should be able to convert '<h1>H1</h1>' to '# H1\\n\\n'", function() {
 			var md = markdown("<h1>H1</h1>");
