@@ -281,6 +281,12 @@ for(var key in parsers) {
 			expect(md).toEqual("");
 		});
 
+		it("should ot convert any unknown elements with  trustHTML option", function(){
+			var md = markdown("Some text and then there's <script>XSS()</script>", {trustHTML: true})
+			expect(md).toEqual("Some text and then there's <script>XSS()</script>")
+			var md = markdown("<p>Some text and then there's <script>XSS()</script></p>", {trustHTML: true})
+			expect(md).toEqual("Some text and then there's <script>XSS()</script>")
+		})
 		//tables
 		it("should be able to convert tables", function() {
 			var html = "<table border=\"1\">";

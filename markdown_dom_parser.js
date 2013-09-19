@@ -38,7 +38,7 @@ var HTMLParser = function (html, handler, opts) {
 	var c = node.childNodes;
 	for (var i = 0; i < c.length; i++) {
 		try {
-			var ignore = false;
+			var ignore = false || opts.trustHTML;
 			for (var k=0; k< nodesToIgnore.length; k++) {
 				if (c[i].nodeName.toLowerCase() == nodesToIgnore[k]) {
 					ignore= true;

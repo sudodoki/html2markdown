@@ -332,6 +332,11 @@ function html2markdown(html, opts) {
 			case "td":
 				nodeList.push("<td>");
 				break;
+			default:
+				if (trustHTML) {
+					nodeList.push("<"+tag+">")
+				}
+				break;
 			}
 		},
 		chars: function(text) {
@@ -536,10 +541,15 @@ function html2markdown(html, opts) {
 			case "hr":
 			case "img":
 				break;
+			default:
+				if (trustHTML) {
+					nodeList.push("</" + tag + ">")
+				}
+				break;
 			}
 
 		}
-	}, {"nodesToIgnore": ["script", "noscript", "object", "iframe", "frame", "head", "style", "label"]});
+	}, {"trustHTML": trustHTML, "nodesToIgnore": ["script", "noscript", "object", "iframe", "frame", "head", "style", "label"]});
 
 	if (!inlineStyle) {
 		for (var i = 0; i < links.length; i++) {
