@@ -53,25 +53,25 @@ function startsWith(value, str) {
 }
 
 function getNormalizedUrl(s) {
-  var urlBase = location.href;
-  var urlDir  = urlBase.replace(/\/[^\/]*$/, '/');
-  var urlPage = urlBase.replace(/#[^\/#]*$/, '');
+	var urlBase = location.href;
+	var urlDir  = urlBase.replace(/\/[^\/]*$/, '/');
+	var urlPage = urlBase.replace(/#[^\/#]*$/, '');
 
-  var url;
-  if(/^[a-zA-Z]([a-zA-Z0-9 -.])*:/.test(s)) {
-    // already absolute url
-    url = s;
-  } else if(/^\x2f/.test(s)) {// %2f --> /
-    // url is relative to site
-    url = window.location.href.split(window.location.pathname)[0]
-    url += s;
-  } else if(/^#/.test(s)) {
-    // url is relative to page
-    url = urlPage + s;
-  } else {
-    url = urlDir + s;
-  }
-  return encodeURI(url);
+	var url;
+	if(/^[a-zA-Z]([a-zA-Z0-9 -.])*:/.test(s)) {
+		// already absolute url
+		url = s;
+	} else if(/^\x2f/.test(s)) {// %2f --> /
+		// url is relative to site
+		url = window.location.href.split(window.location.pathname)[0]
+		url += s;
+	} else if(/^#/.test(s)) {
+		// url is relative to page
+		url = urlPage + s;
+	} else {
+		url = urlDir + s;
+	}
+	return encodeURI(url);
 }
 
 function html2markdown(html, opts) {
